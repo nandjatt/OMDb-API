@@ -22,24 +22,24 @@
 *
 */
 let url = 'http://www.omdbapi.com/?apikey=7d100322&s=Star%20trek';
-let type = document.getElementById("type");
-let year = document.getElementById("year");
+let type = document.getElementById("typeValue");
+let year = document.getElementById("yearValue");
 
 async function fetchData() {
-    try{
-        
-        let response = await fetch('http://mardby.se/AJK15G/simple_json.php');
-        let data = await response.json(); // response.json() är JSON parse()
-        
-        console.log(this.id);
-        let parameter = this.id;
-        let title = getTitle(parameter);
+    try {
+        let response = await fetch('url' + this.value);
+        let data = await response.json();
+        console.log(this.value);
+        console.log(data);
 
-        container.innerHTML = getHTMLContent(title, parameter, data);
+        let = listItemsHTML = '';
+        for (let word of data) {
+            listItemsHTML += <li>${word}</li>;
+        }
 
-        // handlePostTitleEvents();
-        handlePostTitleEventsjQuery();
-    } catch(message) {
+        // document.querySelector(tbody tr td:nth-child(${this.value}) ul).innerHTML = listItemsHTML;
+        document.getElementById('list-' + this.value).innerHTML = listItemsHTML;
+    } catch (message) {
         throw new Error(message);
     }
 }
