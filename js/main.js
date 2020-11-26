@@ -21,6 +21,7 @@
 * http://www.omdbapi.com/?apikey=[yourkey]&s=star trek&type=2020
 *
 */
+
 let url = 'http://www.omdbapi.com/?apikey=df23ef2&s=star trek';
 let typeElement = document.getElementById("type");
 let yearElement = document.getElementById("year");
@@ -29,6 +30,8 @@ let listItemsElement = document.getElementById("listItems");
 async function fetchData() {
     try {
         let response = await fetch(url + this.value);
+
+
         let data = await response.json();
         console.log(this.value);
         console.log(data);
@@ -37,6 +40,7 @@ async function fetchData() {
         for (let word of data) {
             listItemsHTML += <li>${word}</li>;
         }
+
         
         listItems.innerHTML += listItemsHTML;
     } catch (message) {
