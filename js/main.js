@@ -22,28 +22,43 @@
 *
 */
 
-let url = 'http://www.omdbapi.com/?apikey=df23ef2&s=star trek';
-let typeElement = document.getElementById("type");
-let yearElement = document.getElementById("year");
-let listItemsElement = document.getElementById("listItems");
+let url = 'http://www.omdbapi.com/?apikey=7d100322&s=star trek';
 
-async function fetchData() {
-    try {
-        let response = await fetch(url + this.value);
+let userInput = document.getElementById("userinput");
+let type = document.getElementById("select-type");
+let year = document.getElementById("select-year");
+let searchBtn = document.getElementById("search-btn");
+let showResult = document.getElementById("movie-result");
 
+var data;
 
-        let data = await response.json();
-        console.log(this.value);
-        console.log(data);
+function getanswer(q) {
+$.get("https://www.omdbapi.com/?s=%22"+q+"%22&apikey=7d100322", function(rawdata){
+    var rawstring =JSON.stringify(rawdata);
+    data =JSON.parse(rawstring);
+    var title = data.Search[0].Title;
+    var year = data.Search[0].Year; 
+    var type = data.Search[0].Type; 
+    var id = data.Search[0].imdbID; 
+    var imdburl="https://www.imdb.com/title/%22+data.Search[0].imdbID+%22/";
+    var posterurl =data.Search[0].Poster;
 
-        let = listItemsHTML = '';
-        for (let word of data) {
-            listItemsHTML += <li>${word}</li>;
-        }
+    document.getElementById('answer').innerHTML= ` 
 
-        
-        listItems.innerHTML += listItemsHTML;
-    } catch (message) {
-        throw new Error(message);
-    }
+        <div class="row">
+            <div class="col-md-3">
+            <img src="${posterurl}" class="thumbnail">
+                <h3>${title}</h3>
+                <ul class="list-group">
+                <li class="list-group-item"><strong>Year released: </strong>${year}</li>
+                <li class="list-group-item"><strong>Type: </strong>${type}</li>
+                <li class="list-group-item"><strong>Id: </strong>${id}</li>
+                <li class="list-group-item"><strong>IMDB page: </strong><a href='${imdburl}'target='_blank'>Home</a></li>
+                
+            </ul>
+        </div>
+        </div>
+        `; 
+    }); 
+    
 }
