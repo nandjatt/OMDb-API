@@ -24,6 +24,7 @@
 
 let url = 'http://www.omdbapi.com/?apikey=7d100322&s=star trek';
 
+
 let userInput = document.getElementById("userinput");
 let type = document.getElementById("select-type");
 let year = document.getElementById("select-year");
