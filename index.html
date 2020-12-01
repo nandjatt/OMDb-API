@@ -2,40 +2,27 @@
 <html>
 <head>
 	<title>OMDb template</title>
-	<link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="container">
-        <h3 class="text-center">Search For Any Movie</h3>
 
-        <form id="searchForm">
-            <input onkeyup="getanswer(document.getElementById('userinput').value)" type="text" class="form-controll" id="userinput" placeholder="Search Movies...">
-
-            <select name="type" id="select-type">
+        <form id="searchField" onsubmit="event.preventDefault();getanswer();">
+            <h3>Search For Any Movie</h3>
+            <input type="text" id="userinput" placeholder="Search Movies..."></input>
+            
+            <select name="type" id="type-selector">
                 <option> Type </option>
                 <option value="movie"> Movies </option>
                 <option value="series"> Series </option>
                 <option value="documentrys"> Documentrys </option>
             </select>
 
-            <select name="year" id="select-year">
-                <option> Release year </option>
-                <option value="2000"> 2000 </option>
-                <option value="2001"> 2001 </option>
-                <option value="2002"> 2002 </option>
-                <option value="2003"> 2003 </option>
-                <option value="2004"> 2004 </option>
-                <option value="2005"> 2005 </option>
-                <option value="2006"> 2006 </option>
-                <option value="2007"> 2007 </option>
-                <option value="2008"> 2008 </option>
-            </select>
-
             <button id="search-btn">Search</button>
         </form>
 
-            <div id="movie-result"></div>
+            <div id="answer"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
