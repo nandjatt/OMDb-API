@@ -24,41 +24,52 @@
 
 let url = 'http://www.omdbapi.com/?apikey=7d100322&s=star trek';
 
-let userInput = document.getElementById("userinput");
-let type = document.getElementById("select-type");
-let year = document.getElementById("select-year");
-let searchBtn = document.getElementById("search-btn");
-let showResult = document.getElementById("movie-result");
 
-var data;
+function getanswer(){
+    let url = 'http://www.omdbapi.com/?apikey=7d100322';
+    let userInput = document.getElementById("userinput").value;
+    let type = document.getElementById("type-selector").value;
+    url += '&s=' + userInput;
 
-function getanswer(q) {
-$.get("https://www.omdbapi.com/?s=%22"+q+"%22&apikey=7d100322", function(rawdata){
-    var rawstring =JSON.stringify(rawdata);
-    data =JSON.parse(rawstring);
-    var title = data.Search[0].Title;
-    var year = data.Search[0].Year; 
-    var type = data.Search[0].Type; 
-    var id = data.Search[0].imdbID; 
-    var imdburl="https://www.imdb.com/title/%22+data.Search[0].imdbID+%22/";
-    var posterurl =data.Search[0].Poster;
+    if (type.trim() != "Type") {
+        url += '&type=' + type;
+    } 
 
-    document.getElementById('answer').innerHTML= ` 
+    fetch(url)
+    .then((response) => {
+    if (!response.ok) {
+        throw new Error('Something wrong with the request, try again!');
+    }
+    return response.text();
+    })
+    .then((data) => {
+        var output = JSON.parse(data);
+        document.getElementById("answer").innerHTML = '';
 
-        <div class="row">
-            <div class="col-md-3">
-            <img src="${posterurl}" class="thumbnail">
-                <h3>${title}</h3>
-                <ul class="list-group">
-                <li class="list-group-item"><strong>Year released: </strong>${year}</li>
-                <li class="list-group-item"><strong>Type: </strong>${type}</li>
-                <li class="list-group-item"><strong>Id: </strong>${id}</li>
-                <li class="list-group-item"><strong>IMDB page: </strong><a href='${imdburl}'target='_blank'>Home</a></li>
-                
-            </ul>
-        </div>
-        </div>
-        `; 
-    }); 
-    
+    for (var movies of output['Search']) {
+        appendMovies(movies)
+        console.log(movies)
+    }
+
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+
+    function appendMovies(movie) {
+    let showMovieResult = document.getElementById("answer");
+    let htmlMovies = `<div class="row">
+    <div class="col-md-3">
+    <img src="${movie.Poster}" class="thumbnail">
+    <h2>${movie.Title}</h2>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Year released:</strong> ${movie.Year}</li>
+        <li class="list-group-item"><strong>Type:</strong> ${movie.Type}</li>
+        <li class="list-group-item"><strong>Imdb ID:</strong> ${movie.imdbID}</li>
+        <li class="list-group-item"><strong>IMDB page:</strong><a href='https://www.imdb.com/   title/ ${movie.imdbID}/' target='_blank'> Home page</a></li>
+        </ul>
+    </div>
+</div>`
+        showMovieResult.innerHTML += htmlMovies;
+    }
 }

@@ -1,6 +1,72 @@
-li {
+body{
+    background-color: aliceblue;
+    background-image: url(/Users/biladama/JavaScript/omdb-template/img/starShip3.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+.container{
+    justify-content: center;
+}
+#searchField{
+    text-align: center; 
+    height: 100px;
+    background-color: grey;
+    height: 200px;
+    padding-top: 20px;
+
+}
+.list-group{
+    text-decoration: none;
+    display: inline;
+    padding: 20px;
+
+}
+.list-group-item{
+    
+    list-style: none;
+    background-color: grey;
+    text-align: left;
+    padding: 10px;
     margin: 5px;
 }
-img{
-    margin-top: 15px;
+h2{
+    color: rgb(104, 0, 104);
+    text-align: center;
+    font-size: 25px;
+    font-family: Impact, fantasy;
+}
+h3 {
+    color: rgb(104, 0, 104);
+    font-family: Impact, fantasy;
+    font-size: 30px;
+    text-align: center;
+    display: grid;
+    text-align: center; 
+}
+#answer {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    grid-template-areas: 
+    "answer answer answer";
+    justify-content: center;
+    padding: 20px;
+
+}
+img {
+    height: 390px;
+    padding: 20px;
+}
+#movies img, #movie img{
+    width:100%;
+}
+@media(max-width:960px){
+    #movies .col-md-3 .well{
+    height: 390px;
+    }
+
+    #movies .col-md-3 img{
+    height:390px;
+    }
 }
